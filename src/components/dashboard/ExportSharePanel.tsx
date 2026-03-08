@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Download, Link2, FileText, Table2, Check, Copy, Loader2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { institutions, projects, raciMatrix, accountabilityAlerts, collaborationEdges } from '@/data/mockData';
+import PdfExport from './PdfExport';
 
 function generateCSV(type: 'institutions' | 'projects' | 'alerts' | 'matrix'): string {
   switch (type) {
