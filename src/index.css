@@ -5,7 +5,8 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
+  :root,
+  [data-theme='dark'] {
     --background: 222 47% 6%;
     --foreground: 210 40% 92%;
 
@@ -86,6 +87,78 @@
     /* Fonts */
     --font-display: 'Inter', system-ui, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  [data-theme='light'] {
+    --background: 210 20% 96%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 187 72% 40%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 15% 92%;
+    --secondary-foreground: 222 30% 30%;
+
+    --muted: 210 15% 93%;
+    --muted-foreground: 215 15% 45%;
+
+    --accent: 187 40% 92%;
+    --accent-foreground: 187 72% 30%;
+
+    --destructive: 0 72% 50%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 214 20% 85%;
+    --input: 214 20% 88%;
+    --ring: 187 72% 40%;
+
+    --status-healthy: 160 60% 38%;
+    --status-healthy-foreground: 160 60% 25%;
+    --status-delayed: 38 80% 48%;
+    --status-delayed-foreground: 38 80% 25%;
+    --status-blocked: 0 65% 50%;
+    --status-blocked-foreground: 0 65% 30%;
+    --status-active: 210 60% 50%;
+    --status-active-foreground: 210 60% 25%;
+    --status-inactive: 220 10% 65%;
+    --status-inactive-foreground: 220 10% 45%;
+
+    --role-responsible: 187 60% 40%;
+    --role-accountable: 280 55% 50%;
+    --role-consulted: 38 70% 48%;
+    --role-informed: 222 15% 55%;
+    --role-funding: 160 60% 38%;
+    --role-data: 210 60% 50%;
+    --role-verification: 330 55% 50%;
+
+    --graph-node-gov: 210 60% 50%;
+    --graph-node-ngo: 160 60% 42%;
+    --graph-node-private: 38 70% 50%;
+    --graph-node-research: 280 55% 50%;
+    --graph-node-community: 330 55% 50%;
+    --graph-node-donor: 160 60% 38%;
+
+    --sidebar-background: 0 0% 99%;
+    --sidebar-foreground: 222 30% 35%;
+    --sidebar-primary: 187 72% 40%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 15% 94%;
+    --sidebar-accent-foreground: 187 60% 30%;
+    --sidebar-border: 214 20% 88%;
+    --sidebar-ring: 187 72% 40%;
+
+    --surface-elevated: 0 0% 99%;
+    --surface-overlay: 210 15% 96%;
+
+    --glow-primary: 0 0 15px hsl(187 72% 40% / 0.1);
+    --glow-danger: 0 0 15px hsl(0 65% 50% / 0.1);
+    --glow-warning: 0 0 15px hsl(38 80% 48% / 0.1);
   }
 }
 
