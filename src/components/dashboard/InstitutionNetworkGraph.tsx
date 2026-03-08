@@ -23,6 +23,7 @@ const edgeStatusColors: Record<EdgeStatus, string> = {
 
 interface Props {
   onSelectInstitution?: (inst: Institution) => void;
+  filters?: FilterState;
 }
 
 export default function InstitutionNetworkGraph({ onSelectInstitution }: Props) {
