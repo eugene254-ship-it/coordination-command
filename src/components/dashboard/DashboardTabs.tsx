@@ -1,5 +1,5 @@
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { LayoutDashboard, Network, FolderKanban, ShieldAlert, Map, Building2, Brain } from 'lucide-react';
+import { LayoutDashboard, Network, FolderKanban, ShieldAlert, Map, Building2, Brain, Zap, ShieldCheck } from 'lucide-react';
 
 interface Props {
   activeTab: string;
@@ -14,6 +14,8 @@ const tabs = [
   { id: 'regional', label: 'Regional', icon: Map },
   { id: 'institutions', label: 'Institutions', icon: Building2 },
   { id: 'ai-gaps', label: 'AI Gaps', icon: Brain },
+  { id: 'simulation', label: 'Simulation', icon: Zap },
+  { id: 'trust', label: 'Trust', icon: ShieldCheck },
 ];
 
 export default function DashboardTabs({ activeTab, onTabChange }: Props) {

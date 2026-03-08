@@ -16,13 +16,17 @@ import CoordinationGapDetection from '@/components/dashboard/CoordinationGapDete
 import FundFlowSankey from '@/components/dashboard/FundFlowSankey';
 import ProjectHealthBars from '@/components/dashboard/ProjectHealthBars';
 import DependencyInspector from '@/components/dashboard/DependencyInspector';
-import { Shield, Signal } from 'lucide-react';
+import CoordinationSimulation from '@/components/dashboard/CoordinationSimulation';
+import InstitutionalTrustScores from '@/components/dashboard/InstitutionalTrustScores';
+import ExportSharePanel from '@/components/dashboard/ExportSharePanel';
+import { Shield, Signal, Download } from 'lucide-react';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedInstitution, setSelectedInstitution] = useState<Institution | null>(null);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [filters, setFilters] = useState<FilterState>(emptyFilters);
+  const [exportOpen, setExportOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-background">
@@ -39,6 +43,16 @@ const Index = () => {
           </div>
           <div className="flex items-center gap-4">
             <DashboardTabs activeTab={activeTab} onTabChange={setActiveTab} />
+            <div className="relative">
+              <button
+                onClick={() => setExportOpen(!exportOpen)}
+                className="flex items-center gap-1.5 text-[10px] text-muted-foreground border border-border rounded-md px-2.5 py-1.5 hover:text-foreground hover:border-primary/30 transition-colors"
+              >
+                <Download size={11} />
+                <span>Export</span>
+              </button>
+              <ExportSharePanel isOpen={exportOpen} onClose={() => setExportOpen(false)} />
+            </div>
             <div className="flex items-center gap-1.5 text-[10px] text-muted-foreground border border-border rounded-md px-2 py-1">
               <Signal size={10} className="text-status-healthy" />
               <span className="font-mono">Live</span>
@@ -108,6 +122,14 @@ const Index = () => {
 
         {activeTab === 'ai-gaps' && (
           <CoordinationGapDetection />
+        )}
+
+        {activeTab === 'simulation' && (
+          <CoordinationSimulation />
+        )}
+
+        {activeTab === 'trust' && (
+          <InstitutionalTrustScores />
         )}
       </main>
 
