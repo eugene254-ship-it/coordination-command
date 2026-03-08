@@ -1,5 +1,8 @@
-import { projects, institutions, raciMatrix } from '@/data/mockData';
+import { useMemo } from 'react';
+import { projects as allProjects, institutions, raciMatrix } from '@/data/mockData';
 import type { RoleType, ProjectStatus } from '@/data/mockData';
+import type { FilterState } from '@/components/dashboard/FilterToolbar';
+import { filterProjects, isFilterEmpty } from '@/lib/filterUtils';
 import { motion } from 'framer-motion';
 
 const roleLabels: Record<string, { label: string; className: string }> = {
@@ -34,10 +37,11 @@ function RoleCell({ role }: { role: RoleType }) {
 
 interface MatrixProps {
   onSelectProject?: (project: import('@/data/mockData').Project) => void;
+  filters?: FilterState;
 }
 
-export default function ProjectResponsibilityMatrix({ onSelectProject }: MatrixProps = {}) {
-  // Show a subset of institutions that appear in the matrix
+export default function ProjectResponsibilityMatrix({ onSelectProject, filters }: MatrixProps = {}) {
+  const projects = useMemo(() => filters && !isFilterEmpty(filters) ? filterProjects(allProjects, filters, raciMatrix) : allProjects, [filters]);
   const activeInstIds = [...new Set(raciMatrix.map(e => e.institutionId))];
   const matrixInstitutions = institutions.filter(i => activeInstIds.includes(i.id));
 

@@ -1,6 +1,8 @@
-import { useState, useCallback } from 'react';
-import { institutions, collaborationEdges, nodePositions } from '@/data/mockData';
+import { useState, useCallback, useMemo } from 'react';
+import { institutions as allInstitutions, collaborationEdges as allEdges, nodePositions } from '@/data/mockData';
 import type { Institution, CollaborationEdge, InstitutionType, EdgeStatus } from '@/data/mockData';
+import type { FilterState } from '@/components/dashboard/FilterToolbar';
+import { filterInstitutions, filterEdges, isFilterEmpty } from '@/lib/filterUtils';
 import { motion } from 'framer-motion';
 
 const typeColors: Record<InstitutionType, string> = {
@@ -21,12 +23,17 @@ const edgeStatusColors: Record<EdgeStatus, string> = {
 
 interface Props {
   onSelectInstitution?: (inst: Institution) => void;
+  filters?: FilterState;
 }
 
-export default function InstitutionNetworkGraph({ onSelectInstitution }: Props) {
+export default function InstitutionNetworkGraph({ onSelectInstitution, filters }: Props) {
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
   const [hoveredEdge, setHoveredEdge] = useState<CollaborationEdge | null>(null);
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
+
+  const institutions = useMemo(() => filters && !isFilterEmpty(filters) ? filterInstitutions(allInstitutions, filters) : allInstitutions, [filters]);
+  const instIds = useMemo(() => new Set(institutions.map(i => i.id)), [institutions]);
+  const collaborationEdges = useMemo(() => filters && !isFilterEmpty(filters) ? filterEdges(allEdges, instIds) : allEdges, [filters, instIds]);
 
   const getNodeSize = useCallback((inst: Institution) => {
     return 12 + inst.activeProjects * 2;

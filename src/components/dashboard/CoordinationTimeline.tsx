@@ -1,5 +1,8 @@
-import { timelinePhases, projects, institutions } from '@/data/mockData';
+import { useMemo } from 'react';
+import { timelinePhases as allPhases, projects as allProjects, institutions } from '@/data/mockData';
 import type { ProjectStatus } from '@/data/mockData';
+import type { FilterState } from '@/components/dashboard/FilterToolbar';
+import { filterProjects, isFilterEmpty } from '@/lib/filterUtils';
 import { motion } from 'framer-motion';
 
 const statusColors: Record<ProjectStatus, string> = {
@@ -18,7 +21,12 @@ const statusBg: Record<ProjectStatus, string> = {
   unassigned: 'bg-muted border-border',
 };
 
-export default function CoordinationTimeline() {
+interface Props { filters?: FilterState; }
+
+export default function CoordinationTimeline({ filters }: Props = {}) {
+  const projects = useMemo(() => filters && !isFilterEmpty(filters) ? filterProjects(allProjects, filters) : allProjects, [filters]);
+  const filteredProjIds = useMemo(() => new Set(projects.map(p => p.id)), [projects]);
+  const timelinePhases = useMemo(() => allPhases.filter(tp => filteredProjIds.has(tp.projectId)), [filteredProjIds]);
   // Timeline from 2025-01 to 2027-01 (24 months)
   const startMonth = new Date('2025-01-01');
   const totalMonths = 24;
