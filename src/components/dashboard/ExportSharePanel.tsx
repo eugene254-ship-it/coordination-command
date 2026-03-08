@@ -152,13 +152,14 @@ export default function ExportSharePanel({ isOpen, onClose }: Props) {
             {/* PDF Report */}
             <div className="mb-4">
               <label className="text-[10px] text-muted-foreground mb-1.5 block font-medium">Full Report</label>
+              <PdfExport className="w-full" />
               <button
                 onClick={downloadReport}
-                className="w-full flex items-center gap-2 px-3 py-2 rounded-md border border-primary/30 bg-primary/5 text-[11px] text-primary hover:bg-primary/10 transition-colors"
+                className="w-full flex items-center gap-2 px-3 py-2 mt-1.5 rounded-md border border-border bg-muted/20 text-[11px] text-foreground hover:bg-muted/40 transition-colors"
               >
-                <FileText size={12} />
+                <FileText size={12} className="text-muted-foreground" />
                 <span className="flex-1 text-left">Download HTML Report</span>
-                <Download size={10} />
+                <Download size={10} className="text-muted-foreground" />
               </button>
             </div>
 
