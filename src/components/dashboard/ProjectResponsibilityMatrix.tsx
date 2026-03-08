@@ -1,5 +1,8 @@
-import { projects, institutions, raciMatrix } from '@/data/mockData';
+import { useMemo } from 'react';
+import { projects as allProjects, institutions, raciMatrix } from '@/data/mockData';
 import type { RoleType, ProjectStatus } from '@/data/mockData';
+import type { FilterState } from '@/components/dashboard/FilterToolbar';
+import { filterProjects, isFilterEmpty } from '@/lib/filterUtils';
 import { motion } from 'framer-motion';
 
 const roleLabels: Record<string, { label: string; className: string }> = {
