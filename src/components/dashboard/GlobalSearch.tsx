@@ -75,7 +75,7 @@ interface GlobalSearchProps {
   onNavigateTab?: (tab: string) => void;
 }
 
-export default function GlobalSearch({ open, onClose, onSelectInstitution, onSelectProject, onNavigateTab }: GlobalSearchProps) {
+export default function GlobalSearch({ open, onClose, onNavigateTab }: GlobalSearchProps) {
   const [query, setQuery] = useState('');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
