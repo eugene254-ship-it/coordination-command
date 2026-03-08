@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Institution } from '@/data/mockData';
+import type { Institution, Project } from '@/data/mockData';
 import CoordinationSummaryBar from '@/components/dashboard/CoordinationSummaryBar';
 import InstitutionNetworkGraph from '@/components/dashboard/InstitutionNetworkGraph';
 import AccountabilityAlertsPanel from '@/components/dashboard/AccountabilityAlertsPanel';
@@ -8,11 +8,18 @@ import CoordinationTimeline from '@/components/dashboard/CoordinationTimeline';
 import InstitutionDetailDrawer from '@/components/dashboard/InstitutionDetailDrawer';
 import InstitutionsTable from '@/components/dashboard/InstitutionsTable';
 import DashboardTabs from '@/components/dashboard/DashboardTabs';
+import RegionalCoordinationMap from '@/components/dashboard/RegionalCoordinationMap';
+import ProjectDetailDrawer from '@/components/dashboard/ProjectDetailDrawer';
+import FilterToolbar, { emptyFilters } from '@/components/dashboard/FilterToolbar';
+import type { FilterState } from '@/components/dashboard/FilterToolbar';
+import CoordinationGapDetection from '@/components/dashboard/CoordinationGapDetection';
 import { Shield, Signal } from 'lucide-react';
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const [selectedInstitution, setSelectedInstitution] = useState<Institution | null>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [filters, setFilters] = useState<FilterState>(emptyFilters);
 
   return (
     <div className="min-h-screen bg-background">
@@ -40,9 +47,12 @@ const Index = () => {
       </header>
 
       {/* Content */}
-      <main className="p-5 space-y-5">
+      <main className="p-5 space-y-4">
         {/* Summary bar - always visible */}
         <CoordinationSummaryBar />
+
+        {/* Filter toolbar */}
+        <FilterToolbar filters={filters} onFiltersChange={setFilters} />
 
         {/* Overview */}
         {activeTab === 'overview' && (
@@ -55,7 +65,7 @@ const Index = () => {
                 <AccountabilityAlertsPanel />
               </div>
             </div>
-            <ProjectResponsibilityMatrix />
+            <ProjectResponsibilityMatrix onSelectProject={setSelectedProject} />
             <CoordinationTimeline />
           </div>
         )}
@@ -68,7 +78,7 @@ const Index = () => {
 
         {activeTab === 'projects' && (
           <div className="space-y-5">
-            <ProjectResponsibilityMatrix />
+            <ProjectResponsibilityMatrix onSelectProject={setSelectedProject} />
             <CoordinationTimeline />
           </div>
         )}
@@ -79,16 +89,30 @@ const Index = () => {
           </div>
         )}
 
+        {activeTab === 'regional' && (
+          <RegionalCoordinationMap onSelectInstitution={setSelectedInstitution} />
+        )}
+
         {activeTab === 'institutions' && (
           <InstitutionsTable onSelectInstitution={setSelectedInstitution} />
         )}
+
+        {activeTab === 'ai-gaps' && (
+          <CoordinationGapDetection />
+        )}
       </main>
 
-      {/* Detail drawer */}
+      {/* Detail drawers */}
       {selectedInstitution && (
         <InstitutionDetailDrawer
           institution={selectedInstitution}
           onClose={() => setSelectedInstitution(null)}
+        />
+      )}
+      {selectedProject && (
+        <ProjectDetailDrawer
+          project={selectedProject}
+          onClose={() => setSelectedProject(null)}
         />
       )}
     </div>

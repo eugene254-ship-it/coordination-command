@@ -32,7 +32,11 @@ function RoleCell({ role }: { role: RoleType }) {
   );
 }
 
-export default function ProjectResponsibilityMatrix() {
+interface MatrixProps {
+  onSelectProject?: (project: import('@/data/mockData').Project) => void;
+}
+
+export default function ProjectResponsibilityMatrix({ onSelectProject }: MatrixProps = {}) {
   // Show a subset of institutions that appear in the matrix
   const activeInstIds = [...new Set(raciMatrix.map(e => e.institutionId))];
   const matrixInstitutions = institutions.filter(i => activeInstIds.includes(i.id));
@@ -73,7 +77,8 @@ export default function ProjectResponsibilityMatrix() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: idx * 0.03 }}
-                className="border-b border-border/50 hover:bg-muted/30 transition-colors"
+                className="border-b border-border/50 hover:bg-muted/30 transition-colors cursor-pointer"
+                onClick={() => onSelectProject?.(proj)}
               >
                 <td className="px-3 py-2 text-foreground font-medium sticky left-0 bg-card z-10">
                   <div className="truncate max-w-[180px]" title={proj.name}>{proj.name}</div>
