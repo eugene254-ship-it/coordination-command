@@ -32,7 +32,11 @@ function RoleCell({ role }: { role: RoleType }) {
   );
 }
 
-export default function ProjectResponsibilityMatrix() {
+interface MatrixProps {
+  onSelectProject?: (project: import('@/data/mockData').Project) => void;
+}
+
+export default function ProjectResponsibilityMatrix({ onSelectProject }: MatrixProps = {}) {
   // Show a subset of institutions that appear in the matrix
   const activeInstIds = [...new Set(raciMatrix.map(e => e.institutionId))];
   const matrixInstitutions = institutions.filter(i => activeInstIds.includes(i.id));
