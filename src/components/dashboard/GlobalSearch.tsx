@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Building2, FolderKanban, AlertTriangle, X, Command } from 'lucide-react';
-import { institutions, projects, alerts } from '@/data/mockData';
+import { Search, Building2, FolderKanban, AlertTriangle } from 'lucide-react';
+import { institutions, projects, accountabilityAlerts } from '@/data/mockData';
 
 interface SearchResult {
   id: string;
