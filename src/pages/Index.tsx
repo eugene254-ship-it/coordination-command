@@ -13,6 +13,9 @@ import ProjectDetailDrawer from '@/components/dashboard/ProjectDetailDrawer';
 import FilterToolbar, { emptyFilters } from '@/components/dashboard/FilterToolbar';
 import type { FilterState } from '@/components/dashboard/FilterToolbar';
 import CoordinationGapDetection from '@/components/dashboard/CoordinationGapDetection';
+import FundFlowSankey from '@/components/dashboard/FundFlowSankey';
+import ProjectHealthBars from '@/components/dashboard/ProjectHealthBars';
+import DependencyInspector from '@/components/dashboard/DependencyInspector';
 import { Shield, Signal } from 'lucide-react';
 
 const Index = () => {
@@ -23,7 +26,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
       <header className="border-b border-border bg-card/80 backdrop-blur-sm sticky top-0 z-30">
         <div className="flex items-center justify-between px-5 py-3">
           <div className="flex items-center gap-3">
@@ -46,46 +48,53 @@ const Index = () => {
         </div>
       </header>
 
-      {/* Content */}
       <main className="p-5 space-y-4">
-        {/* Summary bar - always visible */}
         <CoordinationSummaryBar />
-
-        {/* Filter toolbar */}
         <FilterToolbar filters={filters} onFiltersChange={setFilters} />
 
-        {/* Overview */}
         {activeTab === 'overview' && (
           <div className="space-y-5">
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
               <div className="lg:col-span-2">
-                <InstitutionNetworkGraph onSelectInstitution={setSelectedInstitution} />
+                <InstitutionNetworkGraph onSelectInstitution={setSelectedInstitution} filters={filters} />
               </div>
               <div className="lg:col-span-1 min-h-[400px]">
-                <AccountabilityAlertsPanel />
+                <AccountabilityAlertsPanel filters={filters} />
               </div>
             </div>
-            <ProjectResponsibilityMatrix onSelectProject={setSelectedProject} />
-            <CoordinationTimeline />
+            <ProjectResponsibilityMatrix onSelectProject={setSelectedProject} filters={filters} />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+              <FundFlowSankey />
+              <ProjectHealthBars />
+            </div>
+            <CoordinationTimeline filters={filters} />
           </div>
         )}
 
         {activeTab === 'network' && (
           <div className="h-[calc(100vh-200px)]">
-            <InstitutionNetworkGraph onSelectInstitution={setSelectedInstitution} />
+            <InstitutionNetworkGraph onSelectInstitution={setSelectedInstitution} filters={filters} />
           </div>
         )}
 
         {activeTab === 'projects' && (
           <div className="space-y-5">
-            <ProjectResponsibilityMatrix onSelectProject={setSelectedProject} />
-            <CoordinationTimeline />
+            <ProjectResponsibilityMatrix onSelectProject={setSelectedProject} filters={filters} />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+              <FundFlowSankey />
+              <ProjectHealthBars />
+            </div>
+            <CoordinationTimeline filters={filters} />
+            <DependencyInspector />
           </div>
         )}
 
         {activeTab === 'accountability' && (
-          <div className="max-w-3xl">
-            <AccountabilityAlertsPanel />
+          <div className="space-y-5">
+            <div className="max-w-3xl">
+              <AccountabilityAlertsPanel filters={filters} />
+            </div>
+            <DependencyInspector />
           </div>
         )}
 
@@ -102,7 +111,6 @@ const Index = () => {
         )}
       </main>
 
-      {/* Detail drawers */}
       {selectedInstitution && (
         <InstitutionDetailDrawer
           institution={selectedInstitution}
