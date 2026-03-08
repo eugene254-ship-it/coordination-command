@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import type { Institution, Project } from '@/data/mockData';
 import CoordinationSummaryBar from '@/components/dashboard/CoordinationSummaryBar';
 import InstitutionNetworkGraph from '@/components/dashboard/InstitutionNetworkGraph';
@@ -19,9 +19,11 @@ import DependencyInspector from '@/components/dashboard/DependencyInspector';
 import CoordinationSimulation from '@/components/dashboard/CoordinationSimulation';
 import InstitutionalTrustScores from '@/components/dashboard/InstitutionalTrustScores';
 import ExportSharePanel from '@/components/dashboard/ExportSharePanel';
+import GlobalSearch from '@/components/dashboard/GlobalSearch';
 import { NotificationBell, useRealTimeEvents } from '@/components/dashboard/NotificationSystem';
 import { useTheme } from '@/hooks/use-theme';
-import { Shield, Signal, Download, Sun, Moon, Menu, X } from 'lucide-react';
+import { useKeyboardShortcuts } from '@/hooks/use-keyboard-shortcuts';
+import { Shield, Signal, Download, Sun, Moon, Menu, X, Search } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 const Index = () => {
@@ -31,8 +33,25 @@ const Index = () => {
   const [filters, setFilters] = useState<FilterState>(emptyFilters);
   const [exportOpen, setExportOpen] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const { events, unreadCount, isConnected, markAllRead, markRead } = useRealTimeEvents();
+
+  useKeyboardShortcuts({
+    onTabChange: setActiveTab,
+    onToggleTheme: toggleTheme,
+    onToggleNotifications: useCallback(() => setNotificationsOpen(p => !p), []),
+    onToggleSearch: useCallback(() => setSearchOpen(p => !p), []),
+    onCloseAll: useCallback(() => {
+      setExportOpen(false);
+      setMobileNavOpen(false);
+      setSearchOpen(false);
+      setNotificationsOpen(false);
+      setSelectedInstitution(null);
+      setSelectedProject(null);
+    }, []),
+  });
 
   const handleTabChange = (tab: string) => {
     setActiveTab(tab);
