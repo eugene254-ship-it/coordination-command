@@ -287,6 +287,12 @@ const Index = () => {
           onClose={() => setSelectedProject(null)}
         />
       )}
+
+      <GlobalSearch
+        open={searchOpen}
+        onClose={() => setSearchOpen(false)}
+        onNavigateTab={setActiveTab}
+      />
     </div>
   );
 };
