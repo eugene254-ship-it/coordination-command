@@ -40,7 +40,7 @@ function searchAll(query: string): SearchResult[] {
     }
   });
 
-  alerts.forEach(alert => {
+  accountabilityAlerts.forEach(alert => {
     if (alert.message.toLowerCase().includes(q)) {
       results.push({
         id: alert.id,
