@@ -11,7 +11,10 @@ const severityConfig = {
   info: { icon: Info, className: 'status-active border', dotColor: 'bg-status-active' },
 };
 
-export default function AccountabilityAlertsPanel() {
+interface Props { filters?: FilterState; }
+
+export default function AccountabilityAlertsPanel({ filters }: Props = {}) {
+  const accountabilityAlerts = useMemo(() => filters && !isFilterEmpty(filters) ? filterAlerts(allAlerts, filters) : allAlerts, [filters]);
   const sorted = [...accountabilityAlerts].sort((a, b) => {
     const order = { critical: 0, warning: 1, info: 2 };
     return order[a.severity] - order[b.severity];

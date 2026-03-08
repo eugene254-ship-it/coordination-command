@@ -26,10 +26,14 @@ interface Props {
   filters?: FilterState;
 }
 
-export default function InstitutionNetworkGraph({ onSelectInstitution }: Props) {
+export default function InstitutionNetworkGraph({ onSelectInstitution, filters }: Props) {
   const [hoveredNode, setHoveredNode] = useState<string | null>(null);
   const [hoveredEdge, setHoveredEdge] = useState<CollaborationEdge | null>(null);
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
+
+  const institutions = useMemo(() => filters && !isFilterEmpty(filters) ? filterInstitutions(allInstitutions, filters) : allInstitutions, [filters]);
+  const instIds = useMemo(() => new Set(institutions.map(i => i.id)), [institutions]);
+  const collaborationEdges = useMemo(() => filters && !isFilterEmpty(filters) ? filterEdges(allEdges, instIds) : allEdges, [filters, instIds]);
 
   const getNodeSize = useCallback((inst: Institution) => {
     return 12 + inst.activeProjects * 2;
