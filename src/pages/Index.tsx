@@ -87,11 +87,21 @@ const Index = () => {
 
           {/* Right Controls */}
           <div className="flex items-center gap-2 sm:gap-3">
+            {/* Search */}
+            <button
+              onClick={() => setSearchOpen(true)}
+              className="flex items-center gap-1.5 text-[10px] text-muted-foreground border border-border rounded-md px-2.5 py-1.5 hover:text-foreground hover:border-primary/30 transition-colors"
+              title="Search (/ or ⌘K)"
+            >
+              <Search size={11} />
+              <span className="hidden sm:inline text-[9px] font-mono">⌘K</span>
+            </button>
+
             {/* Theme Toggle */}
             <button
               onClick={toggleTheme}
               className="flex items-center justify-center w-8 h-8 rounded-md border border-border text-muted-foreground hover:text-foreground hover:border-primary/30 transition-colors"
-              title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              title={`${theme === 'dark' ? 'Light' : 'Dark'} mode (T)`}
             >
               {theme === 'dark' ? <Sun size={13} /> : <Moon size={13} />}
             </button>
