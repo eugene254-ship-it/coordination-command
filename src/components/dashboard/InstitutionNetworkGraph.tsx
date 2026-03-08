@@ -1,6 +1,8 @@
-import { useState, useCallback } from 'react';
-import { institutions, collaborationEdges, nodePositions } from '@/data/mockData';
+import { useState, useCallback, useMemo } from 'react';
+import { institutions as allInstitutions, collaborationEdges as allEdges, nodePositions } from '@/data/mockData';
 import type { Institution, CollaborationEdge, InstitutionType, EdgeStatus } from '@/data/mockData';
+import type { FilterState } from '@/components/dashboard/FilterToolbar';
+import { filterInstitutions, filterEdges, isFilterEmpty } from '@/lib/filterUtils';
 import { motion } from 'framer-motion';
 
 const typeColors: Record<InstitutionType, string> = {
