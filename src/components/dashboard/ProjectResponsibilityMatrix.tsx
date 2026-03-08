@@ -77,7 +77,8 @@ export default function ProjectResponsibilityMatrix({ onSelectProject }: MatrixP
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: idx * 0.03 }}
-                className="border-b border-border/50 hover:bg-muted/30 transition-colors"
+                className="border-b border-border/50 hover:bg-muted/30 transition-colors cursor-pointer"
+                onClick={() => onSelectProject?.(proj)}
               >
                 <td className="px-3 py-2 text-foreground font-medium sticky left-0 bg-card z-10">
                   <div className="truncate max-w-[180px]" title={proj.name}>{proj.name}</div>
