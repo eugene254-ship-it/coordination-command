@@ -70,8 +70,6 @@ const typeColors = {
 interface GlobalSearchProps {
   open: boolean;
   onClose: () => void;
-  onSelectInstitution?: (id: string) => void;
-  onSelectProject?: (id: string) => void;
   onNavigateTab?: (tab: string) => void;
 }
 
