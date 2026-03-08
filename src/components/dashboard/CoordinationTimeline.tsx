@@ -1,5 +1,8 @@
-import { timelinePhases, projects, institutions } from '@/data/mockData';
+import { useMemo } from 'react';
+import { timelinePhases as allPhases, projects as allProjects, institutions } from '@/data/mockData';
 import type { ProjectStatus } from '@/data/mockData';
+import type { FilterState } from '@/components/dashboard/FilterToolbar';
+import { filterProjects, isFilterEmpty } from '@/lib/filterUtils';
 import { motion } from 'framer-motion';
 
 const statusColors: Record<ProjectStatus, string> = {
