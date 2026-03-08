@@ -1,4 +1,7 @@
-import { accountabilityAlerts } from '@/data/mockData';
+import { useMemo } from 'react';
+import { accountabilityAlerts as allAlerts } from '@/data/mockData';
+import type { FilterState } from '@/components/dashboard/FilterToolbar';
+import { filterAlerts, isFilterEmpty } from '@/lib/filterUtils';
 import { motion } from 'framer-motion';
 import { AlertTriangle, AlertCircle, Info, Clock } from 'lucide-react';
 
