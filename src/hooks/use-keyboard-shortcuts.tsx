@@ -56,6 +56,13 @@ export function useKeyboardShortcuts(actions: ShortcutActions) {
         return;
       }
 
+      // Shortcuts help: ?
+      if (e.key === '?') {
+        e.preventDefault();
+        actions.onToggleShortcutsHelp();
+        return;
+      }
+
       // Escape: close all
       if (e.key === 'Escape') {
         actions.onCloseAll();

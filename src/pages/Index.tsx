@@ -20,6 +20,7 @@ import CoordinationSimulation from '@/components/dashboard/CoordinationSimulatio
 import InstitutionalTrustScores from '@/components/dashboard/InstitutionalTrustScores';
 import ExportSharePanel from '@/components/dashboard/ExportSharePanel';
 import GlobalSearch from '@/components/dashboard/GlobalSearch';
+import KeyboardShortcutsModal from '@/components/dashboard/KeyboardShortcutsModal';
 import { NotificationBell, useRealTimeEvents } from '@/components/dashboard/NotificationSystem';
 import { useTheme } from '@/hooks/use-theme';
 import { useKeyboardShortcuts } from '@/hooks/use-keyboard-shortcuts';
