@@ -297,6 +297,10 @@ const Index = () => {
         onClose={() => setSearchOpen(false)}
         onNavigateTab={setActiveTab}
       />
+      <KeyboardShortcutsModal
+        open={shortcutsOpen}
+        onClose={() => setShortcutsOpen(false)}
+      />
     </div>
   );
 };
