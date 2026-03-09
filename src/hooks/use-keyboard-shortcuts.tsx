@@ -5,6 +5,7 @@ interface ShortcutActions {
   onToggleTheme: () => void;
   onToggleNotifications: () => void;
   onToggleSearch: () => void;
+  onToggleShortcutsHelp: () => void;
   onCloseAll: () => void;
 }
 
