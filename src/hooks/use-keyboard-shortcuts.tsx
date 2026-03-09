@@ -5,6 +5,7 @@ interface ShortcutActions {
   onToggleTheme: () => void;
   onToggleNotifications: () => void;
   onToggleSearch: () => void;
+  onToggleShortcutsHelp: () => void;
   onCloseAll: () => void;
 }
 
@@ -52,6 +53,13 @@ export function useKeyboardShortcuts(actions: ShortcutActions) {
       if (e.key === '/' || (e.key === 'k' && (e.metaKey || e.ctrlKey))) {
         e.preventDefault();
         actions.onToggleSearch();
+        return;
+      }
+
+      // Shortcuts help: ?
+      if (e.key === '?') {
+        e.preventDefault();
+        actions.onToggleShortcutsHelp();
         return;
       }
 

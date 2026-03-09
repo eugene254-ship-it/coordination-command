@@ -20,6 +20,7 @@ import CoordinationSimulation from '@/components/dashboard/CoordinationSimulatio
 import InstitutionalTrustScores from '@/components/dashboard/InstitutionalTrustScores';
 import ExportSharePanel from '@/components/dashboard/ExportSharePanel';
 import GlobalSearch from '@/components/dashboard/GlobalSearch';
+import KeyboardShortcutsModal from '@/components/dashboard/KeyboardShortcutsModal';
 import { NotificationBell, useRealTimeEvents } from '@/components/dashboard/NotificationSystem';
 import { useTheme } from '@/hooks/use-theme';
 import { useKeyboardShortcuts } from '@/hooks/use-keyboard-shortcuts';
@@ -35,6 +36,7 @@ const Index = () => {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const { events, unreadCount, isConnected, markAllRead, markRead } = useRealTimeEvents();
 
@@ -43,11 +45,13 @@ const Index = () => {
     onToggleTheme: toggleTheme,
     onToggleNotifications: useCallback(() => setNotificationsOpen(p => !p), []),
     onToggleSearch: useCallback(() => setSearchOpen(p => !p), []),
+    onToggleShortcutsHelp: useCallback(() => setShortcutsOpen(p => !p), []),
     onCloseAll: useCallback(() => {
       setExportOpen(false);
       setMobileNavOpen(false);
       setSearchOpen(false);
       setNotificationsOpen(false);
+      setShortcutsOpen(false);
       setSelectedInstitution(null);
       setSelectedProject(null);
     }, []),
@@ -292,6 +296,10 @@ const Index = () => {
         open={searchOpen}
         onClose={() => setSearchOpen(false)}
         onNavigateTab={setActiveTab}
+      />
+      <KeyboardShortcutsModal
+        open={shortcutsOpen}
+        onClose={() => setShortcutsOpen(false)}
       />
     </div>
   );
