@@ -36,6 +36,7 @@ const Index = () => {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
   const { events, unreadCount, isConnected, markAllRead, markRead } = useRealTimeEvents();
 
@@ -44,11 +45,13 @@ const Index = () => {
     onToggleTheme: toggleTheme,
     onToggleNotifications: useCallback(() => setNotificationsOpen(p => !p), []),
     onToggleSearch: useCallback(() => setSearchOpen(p => !p), []),
+    onToggleShortcutsHelp: useCallback(() => setShortcutsOpen(p => !p), []),
     onCloseAll: useCallback(() => {
       setExportOpen(false);
       setMobileNavOpen(false);
       setSearchOpen(false);
       setNotificationsOpen(false);
+      setShortcutsOpen(false);
       setSelectedInstitution(null);
       setSelectedProject(null);
     }, []),
